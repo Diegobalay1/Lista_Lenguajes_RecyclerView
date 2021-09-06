@@ -7,6 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * Incorporamos un contructor, que lo que hará será recibir y
+ * guardar una referencia a la lsita de datos que queramos mostrar, en
+ * nuestro caso una (lista de objetos Lenguaje)
+ */
 class LenguajesAdapter(val lenguajes: List<Lenguaje>) : RecyclerView.Adapter<LenguajesAdapter.ViewHolder?>() {
     // ...
 
