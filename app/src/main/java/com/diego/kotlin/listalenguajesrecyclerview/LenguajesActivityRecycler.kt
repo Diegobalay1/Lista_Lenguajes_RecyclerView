@@ -14,12 +14,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
  */
 class LenguajesActivityRecycler : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     private var swipe: SwipeRefreshLayout? = null
+    var recyclerView: RecyclerView? = null
+    var adaptador: RecyclerView.Adapter<*>? = null
+    var layoutManager: RecyclerView.LayoutManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_lenguajes_recy)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.lista)
+        //val recyclerView = findViewById<RecyclerView>(R.id.lista)
+        recyclerView = findViewById(R.id.lista)
 
         //...swipe
         swipe = findViewById(R.id.swiperefresh)
@@ -31,11 +35,17 @@ class LenguajesActivityRecycler : AppCompatActivity(), SwipeRefreshLayout.OnRefr
         valoresLenguajes.add(Lenguaje("C++", "Lenguaje orientado a objetos", R.mipmap.ic_launcher))
         valoresLenguajes.add(Lenguaje("Python", "Lenguaje funcional", R.mipmap.ic_launcher))
 
-        val adaptador = LenguajesAdapter(valoresLenguajes)
-        recyclerView.adapter = adaptador
+        //val adaptador = LenguajesAdapter(valoresLenguajes)
+        //adaptador = LenguajesAdapter(valoresLenguajes)
+        //recyclerView?.adapter = adaptador
+        val adapter = LenguajesAdapter(valoresLenguajes)
+        recyclerView?.adapter = adapter
+        this.adaptador = adapter
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.setHasFixedSize(true)
+        //recyclerView?.layoutManager = LinearLayoutManager(this)
+        layoutManager = LinearLayoutManager(this)
+        recyclerView?.layoutManager = layoutManager
+        recyclerView?.setHasFixedSize(true)
     }
 
     override fun onRefresh() {

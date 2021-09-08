@@ -9,11 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Incorporamos un contructor, que lo que hará será recibir y
- * guardar una referencia a la lsita de datos que queramos mostrar, en
+ * guardar una referencia a la lista de datos que queramos mostrar, en
  * nuestro caso una (lista de objetos Lenguaje)
  */
 class LenguajesAdapter(val lenguajes: List<Lenguaje>) : RecyclerView.Adapter<LenguajesAdapter.ViewHolder?>() {
-    // ...
+    private var listener: (lenguaje: Lenguaje) -> Unit = {}
+
+    fun setOnItemClickListener(listener: (lenguaje: Lenguaje) -> Unit) {
+        this.listener = listener // Guardamos una referencia al listener
+    }
 
     /**
      * Proporciona una referencia al tipo de vistas que está utilizando.
@@ -48,7 +52,15 @@ class LenguajesAdapter(val lenguajes: List<Lenguaje>) : RecyclerView.Adapter<Len
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v: View = LayoutInflater.from(parent.context)
                         .inflate(R.layout.item_lenguaje, parent, false)
-        return ViewHolder(v)
+        val holder = ViewHolder(v)
+
+        // en el onClick obtenemos la posición ocupada por el item
+        // y llamamos a nuestro propio listener pasando el objeto lenguaje que corresponda
+        v.setOnClickListener {
+            val position: Int = holder.absoluteAdapterPosition//devuelve la posicion del item representado por este ViewHolder
+            listener(lenguajes[position])
+        }
+        return holder
     }
 
     /**
