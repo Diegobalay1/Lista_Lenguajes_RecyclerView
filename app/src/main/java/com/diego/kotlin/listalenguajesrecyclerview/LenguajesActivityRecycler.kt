@@ -2,6 +2,7 @@ package com.diego.kotlin.listalenguajesrecyclerview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -41,6 +42,13 @@ class LenguajesActivityRecycler : AppCompatActivity(), SwipeRefreshLayout.OnRefr
         val adapter = LenguajesAdapter(valoresLenguajes)
         recyclerView?.adapter = adapter
         this.adaptador = adapter
+
+        // creamos un listener del tipo que hemos definido en el adaptador
+        // para saber cuándo se ha pulsado sobre cada item
+        adapter.setOnItemClickListener { lenguaje ->
+            Toast.makeText(this, "Pulsado " + lenguaje.nombre,
+                    Toast.LENGTH_LONG).show()
+        }
 
         //recyclerView?.layoutManager = LinearLayoutManager(this)
         layoutManager = LinearLayoutManager(this)
